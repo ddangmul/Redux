@@ -10,9 +10,19 @@ const redux = require("redux");
 // 새로운 상태 객체(어떠한 값 유형도 이론적으로 가능)를 리턴
 // 순수한 함수. 함수 내에서 어떤 부수 효과도 X
 const counterReducer = (state = { counter: 0 }, action) => {
-  return {
-    counter: state.counter + 1, // 처음 실행 시 기존 상태가 없어서 오류뜨니 초기값 설정 필요. 첫 로깅 시 counter는 1 (0 + 1)
-  };
+  // action type에 따른 작업 정의
+  if (action.type === "increment") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+  return state;
 };
 
 // 5. 저장소 생성 : 어떤 리듀서가 저장소 데이터를 조작하는지 리덕스에게 알려줘야 함
@@ -29,5 +39,6 @@ const counterSubscriber = () => {
 // 6. 저장소 구독: 상태 변경 시마다 구독 함수 실행
 store.subscribe(counterSubscriber);
 
-// 7. 액션 발송
-store.dispatch({ type: "increment" }); // 이후 로깅 시 { counter: 2 }
+// 7. 액션 디스패치
+store.dispatch({ type: "increment" }); // { counter: 1 }
+store.dispatch({ type: "decrement" }); // { counter: 0 }
