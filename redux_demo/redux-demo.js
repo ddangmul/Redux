@@ -30,6 +30,7 @@ const store = redux.createStore(counterReducer);
 
 // console.log(store.getState()); //{ counter: 1 }
 
+// 구독 함수 정의
 const counterSubscriber = () => {
   // 상태 변경될 때마다 트리거
   const latesState = store.getState(); // 최신 상태 스냅샷 받음
