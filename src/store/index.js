@@ -15,13 +15,17 @@ const counterSlice = createSlice({
     },
     increase(state, action) {
       // payload 필요해서 action 받음
-      state.counter = state.counter + action.amount;
+      state.counter = state.counter + action.payload;
     },
     toggleCounter(state) {
-      state.showCounterounter = !state.showCounter;
+      state.showCounter = !state.showCounter;
     },
   },
 });
+
+// counterSlice 액션 객체의 메서드를 호출 -> 액션 객체 생성 (식별자 포함)
+// => 액션 객체 생성 & 고유 식별자 생각 & 오타 검증 불필요
+export const counterActions = counterSlice.actions;
 
 const store = configureStore({
   // 설정 객체 전달

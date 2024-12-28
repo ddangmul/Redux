@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 // useSelector 사용 시 react-redux가 리덕스 저장소에 자동으로 구독을 설정
-
+import { counterActions } from "../store/index";
 import classes from "./Counter.module.css";
 
 const Counter = () => {
@@ -9,19 +9,19 @@ const Counter = () => {
   const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" }); // 리덕스 저장소에 있는 식별자 사용
+    dispatch(counterActions.increment());
   };
 
   const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 5 }); // 추가 속성은 리듀서에 작성한 속성명과 일치
+    dispatch(counterActions.increase(10)); // payload 값 인수로 전달. 필드명은 payload
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
+    dispatch(counterActions.toggleCounter());
   };
 
   return (
@@ -30,7 +30,7 @@ const Counter = () => {
       {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
-        <button onClick={increaseHandler}>Increse by 5</button>
+        <button onClick={increaseHandler}>Increse by 10</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
