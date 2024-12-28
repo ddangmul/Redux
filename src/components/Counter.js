@@ -6,6 +6,7 @@ import classes from "./Counter.module.css";
 const Counter = () => {
   const dispatch = useDispatch(); // 실행가능한 dispatch 함수 생성
   const counter = useSelector((state) => state.counter); // 리덕스가 함수 실행: 상태 객체에서 일부분만 잘라내기
+  const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
     dispatch({ type: "increment" }); // 리덕스 저장소에 있는 식별자 사용
@@ -19,12 +20,14 @@ const Counter = () => {
     dispatch({ type: "decrement" });
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: "toggle" });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increse by 5</button>
