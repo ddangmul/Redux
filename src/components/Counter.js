@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 // useSelector 사용 시 react-redux가 리덕스 저장소에 자동으로 구독을 설정
-import { counterActions } from "../store/index";
+import { counterActions } from "../store/counter";
 import classes from "./Counter.module.css";
+import counterSlice from "../store/counter";
 
 const Counter = () => {
   const dispatch = useDispatch(); // 실행가능한 dispatch 함수 생성
