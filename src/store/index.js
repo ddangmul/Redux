@@ -1,10 +1,10 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: "counter",
-  initialState: initialState,
+  initialState: initialCounterState,
   reducers: {
     // 어떤 액션을 했느냐에 따라 메서드가 자동으로 호출됨 -> if문 작성 불필요
     increment(state) {
@@ -23,15 +23,31 @@ const counterSlice = createSlice({
   },
 });
 
-// counterSlice 액션 객체의 메서드를 호출 -> 액션 객체 생성 (식별자 포함)
-// => 액션 객체 생성 & 고유 식별자 생각 & 오타 검증 불필요
-export const counterActions = counterSlice.actions;
+const initialAuthState = {
+  isAuthenticated: false,
+};
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
 
 const store = configureStore({
-  // 설정 객체 전달
-  reducer: counterSlice.reducer, // 리듀서가 하나일 경우, 전역 상태를 담당하는 주요 리듀서로 사용
-
   // // slice가 여러개일 경우, key-value형태로 작성해 여러 리듀서를 병합 가능
-  // reducer: {counter: counterSlice.reducer}
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
 });
+
+// Slice 액션 객체의 메서드를 호출 -> 액션 객체 생성 (식별자 포함)
+// => 액션 객체 생성 & 고유 식별자 생각 & 오타 검증 불필요
+export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
+
 export default store;

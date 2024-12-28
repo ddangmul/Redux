@@ -5,8 +5,8 @@ import classes from "./Counter.module.css";
 
 const Counter = () => {
   const dispatch = useDispatch(); // 실행가능한 dispatch 함수 생성
-  const counter = useSelector((state) => state.counter); // 리덕스가 함수 실행: 상태 객체에서 일부분만 잘라내기
-  const show = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter); // 리덕스가 함수 실행: 상태 객체에서 일부분만 잘라내기
+  const show = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());
